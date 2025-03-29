@@ -13,7 +13,7 @@ improving script creation efficiency and enhancing self-healing capabilities.
 **Application Considerations**  
 
 **HTML source size:**   
-If a page source is very overly and complex, LLM may hallucinate. Consider using web page component(header, left rail etc) 
+If a page source is overly large or complex, LLM may hallucinate. Consider using web page component(header, left rail etc) 
 to reduce HTML source size and improve accuracy and performance.
 
 
