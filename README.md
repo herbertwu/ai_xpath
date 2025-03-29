@@ -26,7 +26,7 @@ To minimize token usage and costs:
 * **Batch requests**—generate all XPaths for a given page in a single LLM call.
 
 
-**Usability Improvements **  
+**Usability Improvements**  
 
 Add facade API to improve easy-to-use  
 
