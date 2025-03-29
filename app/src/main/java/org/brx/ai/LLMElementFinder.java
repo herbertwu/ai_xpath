@@ -10,7 +10,7 @@ public class LLMElementFinder {
 	private final WebDriver driver;
 	private final LLMXpathGenerator aiXpathGenerator;
 	 public static void main(String[] args) {
-	        System.out.println("Init");
+	        System.out.println("This is demo code.");
 	 }
 
 	public LLMElementFinder(WebDriver driver, LLMXpathGenerator aiXpathGenerator){

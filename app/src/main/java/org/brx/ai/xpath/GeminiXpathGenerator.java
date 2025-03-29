@@ -5,21 +5,16 @@ import org.apache.commons.lang3.StringUtils;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 
 public class GeminiXpathGenerator implements LLMXpathGenerator {
-	private final String NOT_FOUND_RESULT="not_found";
-	 
-	 private GoogleAiGeminiChatModel model;
+	private final String NOT_FOUND_RESULT = "not_found";
+	private GoogleAiGeminiChatModel model;
 
 	public GeminiXpathGenerator(String GEMINI_AI_KEY, String modelName) {
-		model = GoogleAiGeminiChatModel.builder()
-			    .apiKey(GEMINI_AI_KEY)
-			    .modelName(modelName)
-			    .build();
+		model = GoogleAiGeminiChatModel.builder().apiKey(GEMINI_AI_KEY).modelName(modelName).build();
 	}
 
-
 	@Override
-	public String generateRelativeXpath(String htmlContext, String elementDescription) {
-		String prompt = createPrompt(htmlContext,elementDescription);
+	public String generateRelativeXpath(String htmlSource, String elementDescription) {
+		String prompt = createPrompt(htmlSource, elementDescription);
 		String xpath = parseResponse(model.chat(prompt));
 		if (NOT_FOUND_RESULT.equalsIgnoreCase(xpath)) {
 			throw new RuntimeException("The described element can not be found.");
@@ -28,14 +23,18 @@ public class GeminiXpathGenerator implements LLMXpathGenerator {
 		}
 	}
 
-
 	private String parseResponse(String chat) {
 		return StringUtils.chomp(chat).replaceAll("\s+", " ");
 	}
 
-
+	/*
+	 * Demo code for clarity here. 
+	 * In actual application, template engines or other options may be used for better Prompt engineering
+	 */
 	private String createPrompt(String htmlSource, String elementDescription) {
-		return String.format("Act as a software QA engineer, for the following html code, please generate a relative xpath(without any additional description) for the following web element: %s. Say 'not_found' if the web element does not exist.\n\n%s",elementDescription, htmlSource);
+		return String.format(
+				"Act as a software QA engineer, for the following html code, please generate a relative xpath(without any additional description) for the following web element: %s. Say 'not_found' if the web element does not exist.\n\n%s",
+				elementDescription, htmlSource);
 	}
 
 }
